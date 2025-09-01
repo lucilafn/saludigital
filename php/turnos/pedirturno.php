@@ -8,33 +8,44 @@ if (!isset($_SESSION['usuario'])) {
     window.location.href = "form_iniciarsesion.php";
     </script>';
 }
-
-echo"<h1>Pedi tu turno</h1>";
-echo '<input type="submit" name = "categorias" value="categorias">
-      <div class="dropdow">'
-
-$sql = "SELECT * FROM servicios AND profesionales AND turnos"; 
-$resultado = mysqli_query($conexion, $sql);
-          while ($fila = mysqli_fetch_assoc($resultado)) { 
-            echo '<form action="php/producto/categoria.php" method="post">
-                    <input hidden type="text" name="idcategoria" value="'.$fila['idcategoria'].'">
-                    <button type="submit">'.$fila['nombre'].'</button>
-                  </form>';
-          }
-          echo "</select>"; 
-        
-
-while ($arreglo = mysqli_fetch_assoc($resultado)) {
-    echo "<p>Nombre y apellido: " . htmlspecialchars($arreglo['nombre']) . htmlspecialchars($arreglo['apellido']) . "</p>";
-    echo "<p>DNI: " . htmlspecialchars($arreglo['dni']) . "</p>";
-    echo "<p>Teléfono: " . htmlspecialchars($arreglo['telefono']) . "</p>";
-    echo "<p>Correo electrónico: " . htmlspecialchars($arreglo['email']) . "</p>";
-    if (($arreglo['obrasocial'])){
-    echo "<p>Obra social: " . htmlspecialchars($arreglo['obrasocial']) . "</p>"; 
-    }else{
-    echo "No posee";
-    }
-  }
-
-  
 ?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedir Turno</title>
+</head>
+<body>
+    <h2>Pedí tu turno</h2>
+        <form action="buscarturnos.php" method="post">
+            <!-- Lista de servicios -->
+            <label>¿Qué servicio requerís?</label>
+            <select name="idservicio" required>
+            <option value="">Seleccionar servicio</option>
+            <?php
+                $sql = "SELECT * FROM servicios"; 
+                $resultado = mysqli_query($conexion, $sql);
+                while($fila = mysqli_fetch_assoc($resultado)) {
+                    echo "<option value='".$fila['id']."'>".$fila['nombre']."</option>";
+                }
+                ?>
+            </select>
+
+            <!-- Lista de médicos -->
+            <label>¿Con qué profesional querés atenderte?</label>
+            <select name="idprofesional" required>
+                <option value="">Seleccionar profesional</option>
+                <?php
+                $sql = "SELECT * FROM medicos";
+                $resultado = mysqli_query($conexion, $sql);
+                while($fila = mysqli_fetch_assoc($resultado)) {
+                    echo "<option value='".$fila['id']."'>".$fila['nombre']." - ".$fila['servicio']."</option>";
+                }
+                ?>
+            </select>
+
+            <button type="submit">Buscar turnos disponibles</button>
+        </form>
+    </div>
+</body>
+</html>
