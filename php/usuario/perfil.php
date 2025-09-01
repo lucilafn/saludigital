@@ -1,6 +1,30 @@
 <?php
 include('../conexion.php');
 session_start();
+
+if (!isset($_SESSION['usuario'])) {
+    echo'<script>
+    alert("Para poder ve su perfil debe iniciar sesión");
+    window.location.href = "form_iniciarsesion.php";
+    </script>';
+}
+
+$sql = "SELECT * FROM usuarios"; 
+$resultado = mysqli_query($conexion, $sql);
+
+while ($arreglo = mysqli_fetch_assoc($resultado)) {
+    echo "<p>Nombre y apellido: " . htmlspecialchars($arreglo['nombre']) . htmlspecialchars($arreglo['apellido']) . "</p>";
+    echo "<p>DNI: " . htmlspecialchars($arreglo['dni']) . "</p>";
+    echo "<p>Teléfono: " . htmlspecialchars($arreglo['telefono']) . "</p>";
+    echo "<p>Correo electrónico: " . htmlspecialchars($arreglo['email']) . "</p>";
+    if (($arreglo['obrasocial'])){
+    echo "<p>Obra social: " . htmlspecialchars($arreglo['obrasocial']) . "</p>"; 
+    }else{
+    echo "No posee";
+    }
+  }
+
+  echo "<h1>Mis turnos pendientes: </h1>";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,11 +43,7 @@ session_start();
           <div class="profile-name"><?php echo htmlspecialchars($_SESSION['usuario']); ?></div>
         </div>
         <nav>
-          <a href="historial.php" class="back-button">Historial de compras</a>
-          <a href="../producto/misproduct.php" class="back-button">Mis productos </a>
-          <a href="misventas.php" class="back-button">Mis ventas</a>
-          <a href="\spaceshop\index.php" class="back-button">Menu</a>
-          <a href="cerrarsesion.php" class="back-button">Cerrar sesion</a>
+
         </nav>
       </div>
     </div>
