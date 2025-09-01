@@ -2,7 +2,7 @@
 $servidor = "localhost";
 $usuario = "root";
 $password = "";
-$basedatos = "consultorio";
+$basedatos = "saludigital";
 $conexion = mysqli_connect($servidor, $usuario, $password, $basedatos);
 
 if(!$conexion)
