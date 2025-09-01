@@ -20,6 +20,7 @@ include_once('../conexion.php');
             <input class="apellido" type="text" name="apellido" id="apellido" placeholder="Ingresá tu apellido" required autocomplete="off"><br>
             <input class="dni" type="text" name="dni" id="dni" placeholder="Ingresá tu dni" required autocomplete="off"><br>
             <input class="telefono" type="telefono" name="telefono" id="telefono" placeholder="Ingresá tu telefono" required autocomplete="off"><br>
+            <p>En caso de no tener obra social, deje el casillero en blanco</p>
             <input class="obrasocial" type="obrasocial" name="obrasocial" id="obrasocial" placeholder="Ingresá tu obra social si es que posees"autocomplete="off"><br>
             <input class="email" type="email" name="email" id="email" placeholder="Ingresá tu correo" required autocomplete="off"><br>
             <input class="contrasenia" type="password" name="contrasenia" id="contrasenia" placeholder="Ingresá tu contraseña" required autocomplete="off"><br>
