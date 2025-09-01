@@ -9,8 +9,20 @@ if (!isset($_SESSION['usuario'])) {
     </script>';
 }
 
+echo"<h1>Pedi tu turno</h1>";
+echo '<input type="submit" name = "categorias" value="categorias">
+      <div class="dropdow">'
+
 $sql = "SELECT * FROM servicios AND profesionales AND turnos"; 
 $resultado = mysqli_query($conexion, $sql);
+          while ($fila = mysqli_fetch_assoc($resultado)) { 
+            echo '<form action="php/producto/categoria.php" method="post">
+                    <input hidden type="text" name="idcategoria" value="'.$fila['idcategoria'].'">
+                    <button type="submit">'.$fila['nombre'].'</button>
+                  </form>';
+          }
+          echo "</select>"; 
+        
 
 while ($arreglo = mysqli_fetch_assoc($resultado)) {
     echo "<p>Nombre y apellido: " . htmlspecialchars($arreglo['nombre']) . htmlspecialchars($arreglo['apellido']) . "</p>";
@@ -24,5 +36,5 @@ while ($arreglo = mysqli_fetch_assoc($resultado)) {
     }
   }
 
-  echo "<h1>Mis turnos pendientes: </h1>";
+  
 ?>
