@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-08-2025 a las 22:58:47
+-- Tiempo de generación: 01-09-2025 a las 17:57:19
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -18,16 +18,16 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `consultorio`
+-- Base de datos: `saludigital`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `profesional`
+-- Estructura de tabla para la tabla `profesionales`
 --
 
-CREATE TABLE `profesional` (
+CREATE TABLE `profesionales` (
   `id_profesional` int(11) NOT NULL,
   `nombre` varchar(30) NOT NULL,
   `apellido` varchar(30) NOT NULL,
@@ -38,10 +38,10 @@ CREATE TABLE `profesional` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `servicio`
+-- Estructura de tabla para la tabla `servicios`
 --
 
-CREATE TABLE `servicio` (
+CREATE TABLE `servicios` (
   `id_servicio` int(11) NOT NULL,
   `nombre` varchar(30) NOT NULL,
   `descripcion` varchar(100) NOT NULL
@@ -50,10 +50,10 @@ CREATE TABLE `servicio` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `turno`
+-- Estructura de tabla para la tabla `turnos`
 --
 
-CREATE TABLE `turno` (
+CREATE TABLE `turnos` (
   `id_turno` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `id_profesional` int(11) NOT NULL,
@@ -64,10 +64,10 @@ CREATE TABLE `turno` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Estructura de tabla para la tabla `usuarios`
 --
 
-CREATE TABLE `usuario` (
+CREATE TABLE `usuarios` (
   `id_usuario` int(11) NOT NULL,
   `nombre` varchar(30) NOT NULL,
   `apellido` varchar(30) NOT NULL,
@@ -84,30 +84,30 @@ CREATE TABLE `usuario` (
 --
 
 --
--- Indices de la tabla `profesional`
+-- Indices de la tabla `profesionales`
 --
-ALTER TABLE `profesional`
+ALTER TABLE `profesionales`
   ADD PRIMARY KEY (`id_profesional`),
   ADD KEY `id_servicio` (`id_servicio`);
 
 --
--- Indices de la tabla `servicio`
+-- Indices de la tabla `servicios`
 --
-ALTER TABLE `servicio`
+ALTER TABLE `servicios`
   ADD PRIMARY KEY (`id_servicio`);
 
 --
--- Indices de la tabla `turno`
+-- Indices de la tabla `turnos`
 --
-ALTER TABLE `turno`
+ALTER TABLE `turnos`
   ADD PRIMARY KEY (`id_turno`),
   ADD KEY `fk_paciente` (`id_usuario`),
   ADD KEY `fk_delegado` (`id_profesional`);
 
 --
--- Indices de la tabla `usuario`
+-- Indices de la tabla `usuarios`
 --
-ALTER TABLE `usuario`
+ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id_usuario`);
 
 --
@@ -115,27 +115,27 @@ ALTER TABLE `usuario`
 --
 
 --
--- AUTO_INCREMENT de la tabla `profesional`
+-- AUTO_INCREMENT de la tabla `profesionales`
 --
-ALTER TABLE `profesional`
+ALTER TABLE `profesionales`
   MODIFY `id_profesional` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `servicio`
+-- AUTO_INCREMENT de la tabla `servicios`
 --
-ALTER TABLE `servicio`
+ALTER TABLE `servicios`
   MODIFY `id_servicio` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `turno`
+-- AUTO_INCREMENT de la tabla `turnos`
 --
-ALTER TABLE `turno`
+ALTER TABLE `turnos`
   MODIFY `id_turno` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `usuario`
+-- AUTO_INCREMENT de la tabla `usuarios`
 --
-ALTER TABLE `usuario`
+ALTER TABLE `usuarios`
   MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -143,17 +143,17 @@ ALTER TABLE `usuario`
 --
 
 --
--- Filtros para la tabla `profesional`
+-- Filtros para la tabla `profesionales`
 --
-ALTER TABLE `profesional`
-  ADD CONSTRAINT `fk_especialidad` FOREIGN KEY (`id_servicio`) REFERENCES `servicio` (`id_servicio`);
+ALTER TABLE `profesionales`
+  ADD CONSTRAINT `fk_especialidad` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`);
 
 --
--- Filtros para la tabla `turno`
+-- Filtros para la tabla `turnos`
 --
-ALTER TABLE `turno`
-  ADD CONSTRAINT `fk_delegado` FOREIGN KEY (`id_profesional`) REFERENCES `profesional` (`id_profesional`),
-  ADD CONSTRAINT `fk_paciente` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`);
+ALTER TABLE `turnos`
+  ADD CONSTRAINT `fk_delegado` FOREIGN KEY (`id_profesional`) REFERENCES `profesionales` (`id_profesional`),
+  ADD CONSTRAINT `fk_paciente` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
