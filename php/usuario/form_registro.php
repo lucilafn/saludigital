@@ -11,7 +11,7 @@ include_once('../conexion.php');
 </head>
 <body>
 <div>
-    <form action="registrar.php" method="POST">
+    <form action="registro.php" method="POST">
         <center><h2>¡!</h2></center>
         <div class="contenedor-registrar">
             <center><h2>:</h2></center>
