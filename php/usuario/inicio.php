@@ -12,8 +12,8 @@ session_start();
 <body>
     <!-- si no existe el usuario aparecen los botones, si existe le da la bienvenida y desaparecen los botones -->
     <?php if (!isset($_SESSION['usuario'])): ?>
-    <a href="php/usuario/form_iniciosesion.php">Iniciar sesión</a>
-    <a href="php/usuario/form_registro.php">Registrarse</a>
+    <a href="form_iniciosesion.php">Iniciar sesión</a>
+    <a href="form_registro.php">Registrarse</a>
   <?php endif; ?>
 </body>
 </html>
