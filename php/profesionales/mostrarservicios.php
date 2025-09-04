@@ -2,7 +2,16 @@
 include('../conexion.php');
 session_start();
 
-$sql = "SELECT * FROM servicios AND profesionales"; 
+// Consulta SQL: seleccionamos los datos de las tablas servicios y profesionales
+// Usamos INNER JOIN para relacionar ambas tablas por el campo id_servicio
+$sql = "SELECT s.nombre AS servicio, 
+        s.descripcion, 
+        p.nombre AS nombre_profesional, 
+        p.apellido, 
+        FROM servicios s
+        INNER JOIN profesionales p 
+        ON s.id_servicio = p.id_servicio";
+
 $resultado = mysqli_query($conexion, $sql);
 echo "<h1>Nuestras prestaciones: </h1>";
 
