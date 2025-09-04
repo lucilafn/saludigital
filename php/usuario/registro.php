@@ -25,7 +25,7 @@ if (isset($_POST['registrar'])) {
         //si el usuario no existe
         $contra_encriptada = md5($contrasenia);
         $insertar_usuario= "INSERT INTO `usuarios`(`nombre`, `apellido`,
-        `dni`, `telefono`, `obra_social`, `email`, `contrasenia`, `administrador`) VALUES (
+        `dni`, `telefono`, `obra_social`, `email`, `contrasenia`, `rol`) VALUES (
         '".$nombre."',
         '".$apellido."',
         '".$dni."',
