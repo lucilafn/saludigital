@@ -7,7 +7,7 @@ session_start();
 $sql = "SELECT s.nombre AS servicio, 
         s.descripcion, 
         p.nombre AS nombre_profesional, 
-        p.apellido, 
+        p.apellido
         FROM servicios s
         INNER JOIN profesionales p 
         ON s.id_servicio = p.id_servicio";
