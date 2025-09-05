@@ -1,5 +1,5 @@
 <?php
-include('conexion.php');
+include('../conexion.php');
 session_start();
 
 $sql = "SELECT * FROM turnos";
