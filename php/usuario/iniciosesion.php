@@ -21,7 +21,7 @@ else
     $resultado = mysqli_query($conexion,$sql);
 
     if(mysqli_num_rows($resultado)>0)
-    { //SI EXISTE LA CUENTA
+    { //SI EXISTE LA CUENTA 
         $datos=mysqli_fetch_assoc($resultado);
         if ($contra_encriptada==$datos['contrasenia'])
         { //SI LAS CONTRASEÑAS COINCIDEN
