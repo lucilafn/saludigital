@@ -1,58 +1,57 @@
 <?php
-include('../conexion.php');
+include('conexion.php');
 session_start();
 
-if (!isset($_SESSION['usuario'])) {
-    echo'<script>
-    alert("Para poder ve su perfil debe iniciar sesión");
-    window.location.href = "form_iniciarsesion.php";
-    </script>';
-}
+$sql = "SELECT * FROM turnos";
+$resultado = mysqli_query($conexion, $sql);
 ?>
+
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Pedir Turno</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turnos</title>
+    <link rel="stylesheet" href="tabla.css">
 </head>
 <body>
-        <h2>Pedí tu turno</h2>
 
-        <form action="buscarturnos.php" method="POST">
-            <!-- Lista de servicios -->
-            <label>¿Qué servicio requerís?</label>
-            <select name="idservicio" required>
-                <option value="">Seleccionar servicio</option>
-                <?php
-                $sql = "SELECT * FROM servicios";
-                $resultado = mysqli_query($conexion, $sql);
-                while($fila = mysqli_fetch_assoc($resultado)) {
-                    echo "<option value='".$fila['id_servicio']."'>".$fila['nombre']."</option>";
-                }
-                ?>
-            </select>
+<?php
+//buscamos todos los turnos y los mostramos
+if (mysqli_num_rows($resultado) > 0) {
+    echo "<table>";
+    echo "<tr>
+            <th>Horario</th>
+            <th>Categoría</th>
+            <th>Disponibilidad</th>
+          </tr>";
 
-            <!-- Lista de profesionales -->
-            <label>¿Con qué profesional querés atenderte?</label>
-            <select name="idprofesional" required>
-                <option value="">Seleccionar profesional</option>
-                <?php
-                $sql = "SELECT p.id_profesional, p.nombre, p.apellido, s.nombre AS servicio
-                        FROM profesionales p
-                        INNER JOIN servicios s ON p.id_servicio = s.id_servicio";
-                $resultado = mysqli_query($conexion, $sql);
-                while($fila = mysqli_fetch_assoc($resultado)) {
-                    echo "<option value='".$fila['id_profesional']."'>".$fila['nombre']." ".$fila['apellido']." (".$fila['servicio'].")</option>";
-                }
-                ?>
-            </select>
+    //mostramos los datos de los turnos
+    while ($array = mysqli_fetch_assoc($resultado)) {
+        echo "<tr>";
+        echo "<td>" . htmlspecialchars($array["horario"]) . "</td>";
+        echo "<td>" . htmlspecialchars($array["categoria"]) . "</td>";
 
-            <!-- Fecha -->
-            <label>¿Qué día querés atenderte?</label>
-            <input type="date" name="fecha" required min="<?php echo date('Y-m-d'); ?>">
+        //aca consultamos el estado del turno, en caso de estar reservado (true) no imprimimos el boton y dejamos su fondo en rojo
+        if ($array["reservado"]) {
+            //reservado
+            echo "<td id='fondo_reserva_reservado'>Turno Reservado</td>";
+        } else {
+            //no reservado
+            echo "<td id='fondo_reserva_disponible'><form action='reservar.php' method='post'>
+                        <input hidden type='number' name='id' value='".$array["id"]."'>
+                        <input type='submit' value='Reservar'>
+                </form></td>";
+        }
 
-            <button type="submit">Buscar turnos disponibles</button>
-        </form>
-    </div>
+        echo "</tr>";
+    }
+    //cerramos la tabla
+    echo "</table>";
+} else {
+    //mostramos si no hay datos en "turnos"
+    echo "<p style='text-align:center;'>No se encontraron resultados.</p>";
+}
+?>
 </body>
 </html>
