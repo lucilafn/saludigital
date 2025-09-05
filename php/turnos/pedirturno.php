@@ -21,7 +21,7 @@ $resultado = mysqli_query($conexion, $sql);
 if (mysqli_num_rows($resultado) > 0) {
     echo "<table>";
     echo "<tr>
-            <th>Horario</th>
+            <th>Cita</th>
             <th>Categoría</th>
             <th>Disponibilidad</th>
           </tr>";

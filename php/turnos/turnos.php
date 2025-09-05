@@ -2,6 +2,13 @@
 include('../conexion.php');
 session_start();
 
+if (!isset($_SESSION['usuario'])) {
+    echo'<script>
+    alert("Para poder ve su perfil debe iniciar sesión");
+    window.location.href = "form_iniciarsesion.php";
+    </script>';
+}
+
 $sql = "SELECT s.nombre AS servicio, 
         s.descripcion, 
         p.nombre AS nombre, 
