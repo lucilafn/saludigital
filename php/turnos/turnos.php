@@ -1,10 +1,10 @@
 <?php
-include('conexion.php');
+include('../conexion.php');
 session_start();
 
 $sql = "SELECT s.nombre AS servicio, 
         s.descripcion, 
-        p.nombre AS nombre_profesional, 
+        p.nombre AS nombre, 
         p.apellido
         FROM servicios s
         INNER JOIN profesionales p 
@@ -32,7 +32,7 @@ $resultado = mysqli_query($conexion, $sql);
             }
             ?>
         </select>
-
+        <br>
         <form action="pedirturno.php" method="POST">
         <label for="profesional">¿Con que profesional deseas atenderte?</label><br>
         <select name="profesional" id="profesional" required>
