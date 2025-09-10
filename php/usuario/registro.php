@@ -4,12 +4,12 @@ include_once('../conexion.php');
 if (isset($_POST['registrar'])) {
 //inyecciones sql
     $nombre = mysqli_real_escape_string ($conexion, $_POST['nombre']);
-    $email = mysqli_real_escape_string ($conexion, $_POST['email']);
     $apellido = mysqli_real_escape_string ($conexion, $_POST['apellido']);
     $dni = mysqli_real_escape_string ($conexion, $_POST['dni']);
-    $contrasenia = mysqli_real_escape_string ($conexion, $_POST['contrasenia']);
     $telefono = mysqli_real_escape_string ($conexion, $_POST['telefono']); 
-    $obrasocial = mysqli_real_escape_string ($conexion, $_POST['obrasocial']);
+    $obrasocial = mysqli_real_escape_string ($conexion, $_POST['obra_social']);
+    $email = mysqli_real_escape_string ($conexion, $_POST['email']);
+    $contrasenia = mysqli_real_escape_string ($conexion, $_POST['contrasenia']);
 
     //consulta de sql filtrando por correo
     $consultausuario="SELECT * FROM usuarios WHERE email ='".$email."'";

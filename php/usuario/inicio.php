@@ -15,6 +15,11 @@ session_start();
     <a href="form_iniciosesion.php">Iniciar sesión</a>
     <a href="form_registro.php">Registrarse</a>
   <?php endif; ?>
+  <?php if (isset($_SESSION['usuario'])): ?>
+    <a href="cerrarsesion.php">Cerrar Sesion</a>
+    <a href="perfil.php">Mi Perfil</a>
+    <a href="../turnos/turnos.php">Turnos</a>
+  <?php endif; ?>
 </body>
 </html>
 

@@ -2,6 +2,13 @@
 include('../conexion.php');
 session_start();
 
+if (!isset($_SESSION['usuario'])) {
+    echo'<script>
+    alert("Para ingresar debe tener una sesion iniciada");
+    window.location.href = "../usuario/form_iniciosesion.php";
+    </script>';
+}
+
 $sql = "SELECT * FROM turnos";
 $resultado = mysqli_query($conexion, $sql);
 ?>
@@ -21,33 +28,32 @@ $resultado = mysqli_query($conexion, $sql);
 if (mysqli_num_rows($resultado) > 0) {
     echo "<table>";
     echo "<tr>
-            <th>Cita</th>
-            <th>Categoría</th>
-            <th>Disponibilidad</th>
+            <th>Dia</th>
+            <th>Hora</th>
+            <th>Servicio</th>
+            <th>Profesional</th>
+            <th>Estado</th>
           </tr>";
 
     //mostramos los datos de los turnos
     while ($array = mysqli_fetch_assoc($resultado)) {
-        echo "<tr>";
-        echo "<td>" . htmlspecialchars($array["horario"]) . "</td>";
-        echo "<td>" . htmlspecialchars($array["categoria"]) . "</td>";
+        if ($array["estado"] == 0)
+        {
+            echo "<tr>";
+            echo "<td>" . htmlspecialchars($array["dia"]) . "</td>";
+            echo "<td>" . htmlspecialchars($array["hora"]) . "</td>";
+            echo "<td>" . htmlspecialchars($array[""]) . "</td>";
+            echo "<td>" . htmlspecialchars($array[""]) . "</td>";
 
-        //aca consultamos el estado del turno, en caso de estar reservado (true) no imprimimos el boton y dejamos su fondo en rojo
-        if ($array["reservado"]) {
-            //reservado
-            echo "<td id='fondo_reserva_reservado'>Turno Reservado</td>";
-        } else {
-            //no reservado
-            echo "<td id='fondo_reserva_disponible'><form action='reservar.php' method='post'>
-                        <input hidden type='number' name='id' value='".$array["id"]."'>
+              echo "<td id='fondo_reserva_disponible'><form action='reservar.php' method='post'>
+                        <input hidden type='number' name='id_turno' value='".$array["id_turno"]."'>
                         <input type='submit' value='Reservar'>
                 </form></td>";
-        }
-
         echo "</tr>";
+        }
+        echo "</table>";
     }
-    //cerramos la tabla
-    echo "</table>";
+    
 } else {
     //mostramos si no hay datos en "turnos"
     echo "<p style='text-align:center;'>No se encontraron resultados.</p>";

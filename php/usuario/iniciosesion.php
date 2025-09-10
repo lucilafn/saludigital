@@ -5,12 +5,12 @@ session_start();
 if (isset($_SESSION['usuario'])) {
     echo'<script>
        alert("Para ingresar a esta pagina, no debe tener una sesion activa");
-       window.location.href = "/saludigital/inicio.php";
+       window.location.href = "inicio.php";
        </script>';
 }
 
 if(!isset($_POST['email'])){ //VERIFICACION DE SESION Y ENTRADA POR URL
-   header('Location: /saludigital/inicio.php');
+   header('Location: inicio.php');
 }
 else
 {
@@ -34,7 +34,7 @@ else
             header("Location: ../administrador/administrador.php");
             exit();
         } else {
-           header("Location: /saludigital/inicio.php");
+           header("Location: inicio.php");
             exit();
         }
         }
@@ -50,7 +50,7 @@ else
     else {
         //no existe la cuenta
         echo'<script>
-            alert("Usuario ingresado no existe, por favor, verifique la cuenta o registrese ");
+            alert("Usuario ingresado no existente, por favor, verifique la cuenta o registrese ");
            window.location.href = "form_registro.php";
             </script>';
     }

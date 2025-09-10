@@ -1,6 +1,17 @@
 <?php
 include_once('../conexion.php');
+
+session_start();
+
+if (isset($_SESSION['usuario']))
+{
+echo'<script>
+alert("No puede ingresar teniendo una sesion activa");
+window.location.href = "inicio.php";
+</script>';
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +39,8 @@ include_once('../conexion.php');
                 <input class="boton" type="submit" value="Registrar" name="registrar">
                 <input class="boton" type="reset" value="Limpiar">
             </center></div>
-            <center><p><a href="/saludigital/index.php">Volver al menú</a></p></center>
+            <center><p><a href="form_iniciosesion.php">¿Ya estas registrado? ¡Clickeá acá!</a></p>
+            <p><a href="inicio.php">Volver al menú</a></p></center>
         </div>
     </form>
 </div>

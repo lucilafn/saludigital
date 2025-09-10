@@ -1,4 +1,17 @@
- <!DOCTYPE html>
+<?php
+include_once('../conexion.php');
+session_start();
+
+if (isset($_SESSION['usuario']))
+{
+echo'<script>
+alert("No puede ingresar teniendo una sesion activa");
+window.location.href = "inicio.php";
+</script>';
+}
+?>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,7 +33,7 @@
         <br>
     </form>
     <center><p><a href="form_registro.php">¿No tenés una cuenta? ¡Clickeá acá!</a></p>
-    <p><a href="/saludigital/index.php">Volver al menú</a></p></center>
+    <p><a href="inicio.php">Volver al menú</a></p></center>
   </div>
 </div>
 </body>

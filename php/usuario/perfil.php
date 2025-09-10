@@ -2,12 +2,12 @@
 include('../conexion.php');
 session_start();
 
-//if (!isset($_SESSION['usuario'])) {
-  //  echo'<script>
-   // alert("Para poder ve su perfil debe iniciar sesión");
-   // window.location.href = "form_iniciarsesion.php";
-   // </script>';
-//}
+if (!isset($_SESSION['usuario'])) {
+echo'<script>
+alert("Para ingresar debe tener una sesion iniciada");
+window.location.href = "form_iniciosesion.php";
+</script>';
+}
 
 $sql = "SELECT * FROM usuarios"; 
 $resultado = mysqli_query($conexion, $sql);
@@ -17,10 +17,10 @@ while ($arreglo = mysqli_fetch_assoc($resultado)) {
     echo "<p>DNI: " . htmlspecialchars($arreglo['dni']) . "</p>";
     echo "<p>Teléfono: " . htmlspecialchars($arreglo['telefono']) . "</p>";
     echo "<p>Correo electrónico: " . htmlspecialchars($arreglo['email']) . "</p>";
-    if (($arreglo['obrasocial'])){
-    echo "<p>Obra social: " . htmlspecialchars($arreglo['obrasocial']) . "</p>"; 
+    if (($arreglo['obra_social'])){
+    echo "<p>Obra social: " . htmlspecialchars($arreglo['obra_social']) . "</p>"; 
     }else{
-    echo "No posee";
+    echo "<p>Obra social: No Posee </p>";
     }
   }
 
