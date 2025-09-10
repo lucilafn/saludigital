@@ -2,13 +2,16 @@
 include('../conexion.php');
 session_start();
 
-if (!isset($_SESSION['usuario'])) {
+// Si el usuario no tiene la sesion iniciada lo redirige a inicio sesion
+if (!isset($_SESSION['usuario']))
+{
     echo'<script>
     alert("Para ingresar debe tener una sesion iniciada");
     window.location.href = "../usuario/form_iniciosesion.php";
     </script>';
 }
 
+// sql = selecciona la tabla (*) turnos
 $sql = "SELECT * FROM turnos";
 $resultado = mysqli_query($conexion, $sql);
 ?>

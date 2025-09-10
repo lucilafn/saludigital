@@ -2,6 +2,7 @@
 include_once('../conexion.php');
 session_start();
 
+// Si el usuario tiene una sesion activa lo redirige a inicio
 if (isset($_SESSION['usuario']))
 {
 echo'<script>
