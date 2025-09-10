@@ -9,11 +9,13 @@ window.location.href = "form_iniciosesion.php";
 </script>';
 }
 
-$sql = "SELECT * FROM usuarios"; 
+$id = $_SESSION['idusuario'];
+$sql = "SELECT * FROM usuarios WHERE id_usuario ='".$id."'";
 $resultado = mysqli_query($conexion, $sql);
 
+
 while ($arreglo = mysqli_fetch_assoc($resultado)) {
-    echo "<p>Nombre y apellido: " . htmlspecialchars($arreglo['nombre']) . htmlspecialchars($arreglo['apellido']) . "</p>";
+    echo "<p>Nombre y apellido: " . htmlspecialchars($arreglo['nombre']) ." ". htmlspecialchars($arreglo['apellido']) . "</p>";
     echo "<p>DNI: " . htmlspecialchars($arreglo['dni']) . "</p>";
     echo "<p>Teléfono: " . htmlspecialchars($arreglo['telefono']) . "</p>";
     echo "<p>Correo electrónico: " . htmlspecialchars($arreglo['email']) . "</p>";
@@ -22,7 +24,14 @@ while ($arreglo = mysqli_fetch_assoc($resultado)) {
     }else{
     echo "<p>Obra social: No Posee </p>";
     }
+
+    echo "<form action = 'modificarusuario.php' method = 'POST'>
+          <input type = 'submit' value = 'modificar'>
+          </form>";
   }
+
+  echo htmlspecialchars($_SESSION['usuario']); 
+  echo "<a href='cerrarsesion.php'>Cerrar Sesion</a>";
 
   echo "<h1>Mis turnos pendientes: </h1>";
 ?>
@@ -40,10 +49,9 @@ while ($arreglo = mysqli_fetch_assoc($resultado)) {
       <div class="profile-and-nav">
         <div class="profile">
           <img src="img/perfil.png" alt="Perfil">
-          <div class="profile-name"><?php echo htmlspecialchars($_SESSION['usuario']); ?></div>
+          <div class="profile-name">
         </div>
         <nav>
-
         </nav>
       </div>
     </div>

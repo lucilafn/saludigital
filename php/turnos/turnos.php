@@ -12,7 +12,7 @@ if (!isset($_SESSION['usuario'])) {
 
 // Consulta SQL con los IDs necesarios
 $sql = "SELECT s.id_servicio, s.nombre AS servicio, s.descripcion,
-               p.id_profesional, p.nombre AS nombre, p.apellido
+        p.id_profesional, p.nombre AS nombre, p.apellido
         FROM servicios s
         INNER JOIN profesionales p 
         ON s.id_servicio = p.id_servicio";
@@ -49,7 +49,7 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
             foreach ($datos as $fila) {
                 if (!in_array($fila['id_servicio'], $serviciosMostrados)) {
                     echo "<option value='" . $fila['id_servicio'] . "'>" .
-                         htmlspecialchars($fila['servicio']) . "</option>";
+                    htmlspecialchars($fila['servicio']) . "</option>";
                     $serviciosMostrados[] = $fila['id_servicio'];
                 }
             }

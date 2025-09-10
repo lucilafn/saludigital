@@ -26,8 +26,8 @@ else
         if ($contra_encriptada==$datos['contrasenia'])
         { //SI LAS CONTRASEÑAS COINCIDEN
          $_SESSION['usuario']=$datos['nombre']; //INICIAMOS SESION
-         $_SESSION['idusuario'] = $datos['idusuario'];
-         $_SESSION['administrador']=$datos['administrador'];
+         $_SESSION['idusuario'] = $datos['id_usuario'];
+         $_SESSION['administrador']=$datos['rol'];
          $_SESSION['email'] = $datos['email'];
         //verificar si es admin
             if ($_SESSION['administrador'] == 1) {

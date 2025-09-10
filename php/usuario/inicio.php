@@ -1,6 +1,4 @@
 <?php
-  // include_once: incluye la conexion a la base de datos una unica vez en el archivo
-  // session_start: permite usar $_SESSION (guarda datos de la sesion, como si esta registrado o no)
   include_once('../conexion.php');
   session_start();
 ?>
@@ -14,32 +12,18 @@
   </head>
   <body>
 
-    <!-- Si no hay una sesion existente... -->
-    <?php
-      if (!isset($_SESSION['usuario'])):
-    ?>
-
-    <!-- Aparecen estos botones -->
+    <!-- Si no hay una sesion existente-->
+    <?php if (!isset($_SESSION['usuario'])):?>
     <a href="form_iniciosesion.php">Iniciar sesión</a>
     <a href="form_registro.php">Registrarse</a>
+    <?php endif; ?>
     
-    <?php
-      endif;
-    ?>
-
-    <!-- Y si hay... -->
-    <?php
-      if (isset($_SESSION['usuario'])):
-    ?>
-
-    <!-- Aparecen estos otros -->
-    <a href="cerrarsesion.php">Cerrar Sesion</a>
+    <!-- Si hay una sesion existente-->
+    <?php if (isset($_SESSION['usuario'])): ?>
     <a href="perfil.php">Mi Perfil</a>
     <a href="../turnos/turnos.php">Turnos</a>
-    
-    <?php
-      endif;
-    ?>
+    <?php endif;?>
+      
 
   </body>
 </html>
