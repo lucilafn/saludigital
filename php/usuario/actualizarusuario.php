@@ -1,8 +1,15 @@
 <?php
-require ('../conexion.php');
-session_start();
+    require ('../conexion.php');
+    session_start();
 
-if ($_SESSION['idusuario']) {
+    if (!isset($_SESSION['usuario']))
+    {
+        header("Location: form_iniciosesion.php");
+        exit();
+    }
+
+    if ($_SESSION['idusuario'])
+    {
         // Validar
         $id = $_SESSION['idusuario'];
         $nombre = mysqli_real_escape_string ($conexion,$_POST['nombre']);
@@ -24,10 +31,14 @@ if ($_SESSION['idusuario']) {
 
         $resultado = mysqli_query($conexion, $sql);
 
-        if ($resultado) {
-         header("Location: perfil.php");
-        } else {
-         echo "algo salio mal";
+        if ($resultado)
+        {
+            header("Location: perfil.php");
+        }
+        
+        else
+        {
+            echo "algo salio mal";
         }
     }
 ?>
