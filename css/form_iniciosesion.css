@@ -1,9 +1,9 @@
-/* Estilos generales */
+/* Fondo general */
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #e6e6e6; /* Fondo exterior */
+  background: linear-gradient(135deg, #74b9ff, #a29bfe); /* Degradado */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,7 +12,7 @@ body {
 
 /* Contenedor principal */
 body > div {
-  background-color: #bfbfbf; /* Fondo principal (gris medio) */
+  background-color: #ffffff; /* Fondo principal (gris medio) */
   padding: 50px;
   border-radius: 8px;
   box-shadow: 4px 4px 8px rgba(0,0,0,0.2);
@@ -22,7 +22,7 @@ body > div {
 
 /* Formulario */
 form {
-  background-color: #a6a6a6; /* Fondo más oscuro que el exterior */
+  background-color:  #87c5d6; /* Fondo más oscuro que el exterior */
   padding: 20px;
   border-radius: 6px;
   box-shadow: 0px 3px 6px rgba(0,0,0,0.3);
@@ -32,7 +32,7 @@ form {
 form h2 {
   margin: 0 0 20px;
   padding: 10px;
-  background-color: #d9d9d9;
+  background-color: #ffffff;
   text-align: center;
   font-size: 18px;
   font-weight: bold;
@@ -49,13 +49,13 @@ input[type="password"] {
   right: 10px;
   border: none;
   border-radius: 4px;
-  background-color: #d9d9d9;
+  background-color: #ffffff;
   font-size: 14px;
 }
 
 /* Botones */
 .boton {
-  background-color: #d9d9d9;
+  background-color:#ffffff;
   border: none;
   padding: 10px 20px;
   margin: 8px 5px;
@@ -68,7 +68,7 @@ input[type="password"] {
 }
 
 .boton:hover {
-  background-color: #c2c2c2;
+  background-color: #d9e5fd;
 }
 
 /* Enlaces debajo */

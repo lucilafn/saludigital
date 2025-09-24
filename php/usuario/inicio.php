@@ -31,17 +31,19 @@
 
     <!-- Si hay una sesion existente... -->
     <?php
-      if (isset($_SESSION['usuario'])):
-    ?>
+    if (isset($_SESSION['usuario'])):
+?>
+<div class="container">
+    <h1>Bienvenido</h1>
 
-    <!-- Mostrar enlaces de perfil, turnos y cerrar sesion -->
-    <a href="perfil.php">Mi Perfil</a>
-    <a href="../turnos/pedirturno.php">Turnos</a>
-    <a href="cerrarsesion.php">Cerrar sesión</a>
+    <?php if (!isset($_SESSION['usuario'])): ?>
+        <a href="form_iniciosesion.php"><img src="../../img/login.png"> Iniciar sesión</a>
+        <a href="form_registro.php"><img src="../../img/register.png"> Registrarse</a>
+    <?php else: ?>
+        <a href="perfil.php"><img src="../../img/profile.png"> Mi Perfil</a>
+        <a href="../turnos/pedirturno.php"><img src="../../img/calendar.png"> Turnos</a>
+        <a href="cerrarsesion.php"><img src="../../img/logout.png"> Cerrar sesión</a>
+    <?php endif; ?>
+</div>
+<?php endif; ?>
 
-    <?php
-      endif;
-    ?>
-
-  </body>
-</html>

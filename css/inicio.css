@@ -1,0 +1,101 @@
+/* Estilos generales */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #e6e6e6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Contenedor de enlaces */
+body > a {
+  display: inline-block;
+  background-color: #d9d9d9;
+  color: #000;
+  text-decoration: none;
+  margin: 10px;
+  padding: 12px 25px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 6px;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+/* Efecto hover */
+body > a:hover {
+  background-color: #c2c2c2;
+  transform: translateY(-2px);
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  body {
+    flex-direction: column;
+  }
+
+  body > a {
+    width: 80%;
+    text-align: center;
+  }
+}
+/* Fondo general */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #74b9ff, #a29bfe); /* Degradado */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Contenedor principal */
+.container {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0px 6px 12px rgba(0,0,0,0.2);
+  text-align: center;
+  width: 350px;
+}
+
+/* Título */
+.container h1 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #2d3436;
+}
+
+/* Enlaces con estilo de botones */
+.container a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #548af6;
+  text-decoration: none;
+  margin: 10px 0;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+/* Iconos dentro de los enlaces */
+.container a img {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+/* Hover animado */
+.container a:hover {
+  background-color: #74b9ff;
+  transform: scale(1.05);
+}
