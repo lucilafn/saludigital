@@ -15,7 +15,7 @@
     {
         while ($fila = mysqli_fetch_assoc ($resultado))
         {
-            echo "<h1>Modificar producto</h1>";
+            echo "<h1>Modificar usuario</h1>";
             echo "<form action = 'actualizarusuario.php' method = 'POST'>";
             echo "<input hidden name = 'idusuario' value = '".$fila['id_usuario']."' type = 'number'>";
             echo "<p>Nombre: <input name = 'nombre' value = '".$fila['nombre']."' type = 'text'></p>";

@@ -9,7 +9,9 @@
   }
 
   echo "<a href='../usuario/inicio.php'><-- Volver</a>
-        <a href='cerrarsesion.php'>Cerrar Sesion</a>";
+        <a href='cerrarsesion.php'>Cerrar Sesion</a>
+        <a href='../historialturnos.php'>Ver historial de turnos</a>";
+
 
   $id = $_SESSION['idusuario'];
   $sql = "SELECT * FROM usuarios WHERE id_usuario ='".$id."'";
@@ -37,8 +39,14 @@
           </form>";
   }
 
+  
+
   echo htmlspecialchars($_SESSION['usuario']);
   echo "<h1>Mis turnos pendientes: </h1>";
+
+  echo "<form action = '../modificarturno.php' method = 'POST'>
+        <input type = 'submit' value = 'modificar'>
+        </form>";
 ?>
 
 <!DOCTYPE html>
