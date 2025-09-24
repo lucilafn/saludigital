@@ -8,10 +8,10 @@
     </head>
     <body>
         <table>
-            <th>ID turno</th>
-            <th>ID Usuario</th>
+            <th>Turnos</th>
+            <th>Usuario</th>
             <th>Dia</th>
-            <th>ID Horario</th>
+            <th>Horarios</th>
             <tr>
                 <?php
                     include("../conexion.php");

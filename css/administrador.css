@@ -18,42 +18,6 @@ td {
     font-size: 16px;
 }
 
-/* Estilo para el turno reservado */
-#fondo_reserva_reservado {
-    background-color: #f44336; /* Rojo para indicar que está reservado */
-    color: white;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* Estilo para el turno disponible */
-#fondo_reserva_disponible {
-    background-color: #b3c9b5; /* Verde para indicar disponibilidad */
-    color: white;
-}
-
-/* Estilo para el formulario */
-#fondo_reserva_disponible form {
-    display: inline-block;
-}
-
-#fondo_reserva_disponible input[type="submit"] {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    background-color: #2196F3; /* Azul para el botón */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-/* Hover sobre el botón */
-#fondo_reserva_disponible input[type="submit"]:hover {
-    background-color: #1976D2;
-}
-
 /* Diseño responsive */
 @media (max-width: 768px) {
     table {

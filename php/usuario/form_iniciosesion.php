@@ -14,14 +14,14 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../../css/iniciosesion.css">
+    <link rel="stylesheet" type="text/css" href="../../css/form_iniciosesion.css">
     <title>Iniciar sesión</title>
   </head>
   <body class="">
     <div class = "">
       <div class="">
         <form action="iniciosesion.php" method="POST">
-          <h2>¡!</h2>
+          <h2>Iniciar sesión</h2>
           <input class="email" type="text" name="email" id="email" placeholder="Ingresá tu email" required autocomplete="off"><br>
           <input class="contrasenia" type="password" name="contrasenia" id="contrasenia" placeholder="Ingresá tu contraseña" required autocomplete="off"><br>
           <center>
