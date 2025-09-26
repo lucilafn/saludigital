@@ -1,28 +1,39 @@
 <?php
-require ('../conexion.php');
+include('../conexion.php');
+session_start();
 
-/*borrar datos por el id*/
-if (isset($_POST['idproducto'])) {
-    $id = $_POST['idproducto'];
-    $sql = "DELETE FROM productos WHERE idproducto = '".$id."'";
-    $resultado = mysqli_query($conexion, $sql);
-    if ($resultado){
-    //header("Location: administrador.php");
-    }else{
-    echo "algo salio mal";
+if (!isset($_SESSION['idusuario'])) {
+    header("Location: ../usuario/form_iniciosesion.php");
+    exit();
 }
+$id_usuario = ($_SESSION['idusuario']);
+
+if (!isset($_GET['id_turno'])) {
+    header("Location: ../perfil.php");
+    exit();
 }
-    $sql = "SELECT * FROM productos";
-         if ($result = $conexion->query($sql)){
-            while($fila = $result->fetch_assoc()){ 
-            echo "<p>".$fila['nombre']."</p>
-            
-            <br>
-            <form action='' method='POST'>
-            <input hidden type ='number' name='idproducto' value='".$fila['idproducto']."'>
-            <input type = submit value='Eliminar producto'>
-            <hr>
-            </form>";
-            }
-        }  
+$id_turno = ($_GET['id_turno']);
+
+// Validar que el turno sea del usuario logueado
+$sql = "SELECT id_turno FROM turnos 
+        WHERE id_turno = $id_turno AND id_usuario = $id_usuario";
+
+$res = mysqli_query($conexion, $sql);
+
+if (mysqli_num_rows($res) == 0) {
+    die("Error: turno no encontrado o no pertenece al usuario.");
+}
+
+//eliminano
+$sql_elim = "DELETE FROM turnos 
+            WHERE id_turno = $id_turno AND id_usuario = $id_usuario";
+
+if (mysqli_query($conexion, $sql_elim)) {
+    echo "<script>
+            alert('El turno fue cancelado correctamente.');
+            window.location.href = '../perfil.php';
+          </script>";
+} else {
+    echo "Error al eliminar turno: " . mysqli_error($conexion);
+}
 ?>
