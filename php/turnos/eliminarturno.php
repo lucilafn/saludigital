@@ -30,7 +30,7 @@ $sql_elim = "DELETE FROM turnos
 
 if (mysqli_query($conexion, $sql_elim)) {
     echo "<script>
-            alert('El turno fue cancelado correctamente.');
+            alert('El turno fue eliminado correctamente.');
             window.location.href = '../perfil.php';
           </script>";
 } else {

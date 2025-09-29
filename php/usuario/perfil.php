@@ -39,14 +39,32 @@
           </form>";
   }
 
-  
-
   echo htmlspecialchars($_SESSION['usuario']);
   echo "<h1>Mis turnos pendientes: </h1>";
 
-  echo "<form action = '../modificarturno.php' method = 'POST'>
-        <input type = 'submit' value = 'modificar'>
-        </form>";
+  if (isset($_POST['id_turno'])) {
+    $id_turno = ($_POST['id_turno']); 
+
+    $sql = "SELECT * FROM turnos WHERE id_turno = $id_turno";
+    $resultado = mysqli_query($conexion, $sql);
+
+    if (mysqli_num_rows($resultado) > 0) {
+        // Si existe el turno, mostramos los botones
+        echo "<form action='../modificarturno.php' method='POST'>
+                <input type='hidden' name='id_turno' value='$id_turno'>
+                <input type='submit' value='Modificar'>
+              </form>";
+
+        echo "<form action='../eliminarturno.php' method='POST'>
+                <input type='hidden' name='id_turno' value='$id_turno'>
+                <input type='submit' value='Eliminar'>
+              </form>";
+    } else {
+        echo "Turno no encontrado.";
+    }
+} else {
+    echo "No se reservo turno.";
+}
 ?>
 
 <!DOCTYPE html>
