@@ -1,101 +1,176 @@
-/* Estilos generales */
+/* ===== Estilo General ===== */
 body {
   margin: 0;
-  padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #e6e6e6;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9fafa;
+  color: #333;
+}
+/* ==== Botones de acceso ==== */
+.btn-acceso {
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
-}
-
-/* Contenedor de enlaces */
-body > a {
-  display: inline-block;
-  background-color: #d9d9d9;
-  color: #000;
-  text-decoration: none;
-  margin: 10px;
-  padding: 12px 25px;
-  font-size: 15px;
-  font-weight: bold;
-  border-radius: 6px;
-  box-shadow: 0px 3px 6px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
-}
-
-/* Efecto hover */
-body > a:hover {
-  background-color: #c2c2c2;
-  transform: translateY(-2px);
-}
-
-/* Responsivo */
-@media (max-width: 600px) {
-  body {
-    flex-direction: column;
-  }
-
-  body > a {
-    width: 80%;
-    text-align: center;
-  }
-}
-/* Fondo general */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: linear-gradient(135deg, #74b9ff, #a29bfe); /* Degradado */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-/* Contenedor principal */
-.container {
-  background-color: #fff;
-  padding: 40px;
+  gap: 8px;
+  background: #00a6a6; /* turquesa principal */
+  color: #fff;
+  padding: 10px 18px;
   border-radius: 12px;
-  box-shadow: 0px 6px 12px rgba(0,0,0,0.2);
-  text-align: center;
-  width: 350px;
-}
-
-/* Título */
-.container h1 {
-  font-size: 22px;
-  margin-bottom: 20px;
-  color: #2d3436;
-}
-
-/* Enlaces con estilo de botones */
-.container a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #548af6;
   text-decoration: none;
-  margin: 10px 0;
-  padding: 12px;
-  font-size: 15px;
-  font-weight: bold;
-  border-radius: 8px;
-  box-shadow: 0px 3px 6px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
+  font-weight: 500;
+  transition: 0.3s;
 }
 
-/* Iconos dentro de los enlaces */
-.container a img {
+.btn-acceso:hover {
+  background: #007f7f;
+}
+
+.btn-acceso img {
   width: 20px;
   height: 20px;
-  margin-right: 8px;
 }
 
-/* Hover animado */
-.container a:hover {
-  background-color: #74b9ff;
-  transform: scale(1.05);
+
+/* ===== Header / Menú ===== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #e6f4f3;
+  padding: 10px 20px;
+  border-bottom: 2px solid #cce2e0;
+}
+
+header .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 20px;
+  color: #008080; /* turquesa */
+}
+span{
+  font-size: 40px;
+  position: relative;
+  left: 30px;
+}
+
+header nav {
+  display: flex;
+  gap: 20px;
+}
+
+header nav a {
+  text-decoration: none;
+  font-size: 15px;
+  color: #006d6d;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+header nav a:hover {
+  background: #cce2e0;
+}
+
+/* ===== Sección Bienvenida ===== */
+.seccion {
+  padding: 10px 10px;
+  text-align: center;
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.seccion h1 {
+  font-size: 60px;
+  color: #004d4d;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.acciones {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.acciones a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #00a6a6;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: 0.3s;
+  font-size: 15px;
+}
+
+.acciones a:hover {
+  background: #007f7f;
+}
+
+.acciones img {
+  width: 20px;
+  height: 20px;
+}
+
+/* ===== Imagen del consultorio ===== */
+.imagen-consultorio {
+  width: 100%;
+  height: 300px;
+  background: #d9d9d9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  font-size: 18px;
+}
+
+/* ===== Secciones de información ===== */
+.section-info {
+  padding: 20px;
+  background: #f0fafa;
+  margin: 10px;
+  border-radius: 12px;
+  border: 1px solid #cce2e0;
+}
+
+/* ===== Footer ===== */
+footer {
+  background: #e6f4f3;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  color: #555;
+  border-top: 2px solid #cce2e0;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  header nav {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .seccion h1 {
+    font-size: 22px;
+  }
+
+  .acciones {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .imagen-consultorio {
+    height: 200px;
+    font-size: 16px;
+  }
 }

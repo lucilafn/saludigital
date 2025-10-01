@@ -17,33 +17,88 @@
   <body>
 
     <!-- Si no hay una sesion existente... -->
-    <?php
-      if (!isset($_SESSION['usuario'])):
-    ?>
+    <!-- Si no hay una sesion existente... -->
+<?php if (!isset($_SESSION['usuario'])): ?>
+  <header>
+    <div class="logo">
+      <img src="img/logo.png" alt="Logo Consultorio" width="35">
+      <span>SaluDigital</span>
+    </div>
+    <nav>
+      <div class="acciones">
+        <a href="form_iniciosesion.php" class="btn-acceso">
+          <img src="../../img/login.png" alt="login"> Iniciar sesión
+        </a>
+        <a href="form_registro.php" class="btn-acceso">
+          <img src="../../img/register.png" alt="registro"> Registrarse
+        </a>
+      </div>
+    </nav>
+  </header>
 
-    <!-- Mostrar enlaces de inicio de sesión y registro -->
-    <a href="form_iniciosesion.php">Iniciar sesión</a>
-    <a href="form_registro.php">Registrarse</a>
-
-    <?php
-      endif;
-    ?>
+  <div class="seccion">
+      <h1>Bienvenido</h1>
+  </div>
+<?php endif; ?>
 
     <!-- Si hay una sesion existente... -->
     <?php
     if (isset($_SESSION['usuario'])):
 ?>
-<div class="container">
-    <h1>Bienvenido</h1>
+<header>
+    <div class="logo">
+      <img src="img/logo.png" alt="Logo Consultorio" width="35">
+      <span>SaluDigital</span>
+    </div>
+    <nav>
+        <div class="acciones">
+          <?php if (!isset($_SESSION['usuario'])): ?>
+              <a href="form_iniciosesion.php"><img src="../../img/login.png"> Iniciar sesión</a>
+              <a href="form_registro.php"><img src="../../img/register.png"> Registrarse</a>
+          <?php else: ?>
+              <a href="perfil.php"><img src="../../img/profile.png"> Mi Perfil</a>
+              <a href="../turnos/pedirturno.php"><img src="../../img/calendar.png"> Turnos</a>
+              <a href="cerrarsesion.php"><img src="../../img/logout.png"> Cerrar sesión</a>
+          <?php endif; ?>
+      </div>
+    </nav>
+  </header>
 
-    <?php if (!isset($_SESSION['usuario'])): ?>
-        <a href="form_iniciosesion.php"><img src="../../img/login.png"> Iniciar sesión</a>
-        <a href="form_registro.php"><img src="../../img/register.png"> Registrarse</a>
-    <?php else: ?>
-        <a href="perfil.php"><img src="../../img/profile.png"> Mi Perfil</a>
-        <a href="../turnos/pedirturno.php"><img src="../../img/calendar.png"> Turnos</a>
-        <a href="cerrarsesion.php"><img src="../../img/logout.png"> Cerrar sesión</a>
-    <?php endif; ?>
-</div>
+  <!-- ===== SECCIÓN BIENVENIDA (usa tu PHP original) ===== -->
+  <div class="seccion">
+      <h1>Bienvenido</h1>
+  </div>
+
+  <!-- ===== IMAGEN DEL CONSULTORIO ===== -->
+  <div class="imagen-consultorio">
+    Imagen del consultorio
+  </div>
+
+  <!-- ===== INFORMACIÓN ===== -->
+  <section class="section-info">
+    <h2>Ubicación</h2>
+    <p>Calle y altura del consultorio</p>
+  </section>
+
+  <section class="section-info">
+    <h2>Descripción</h2>
+    <p>Descripción del consultorio.</p>
+  </section>
+
+  <section class="section-info">
+    <h2>Prestaciones</h2>
+    <p>Prestaciones del consultorio.</p>
+  </section>
+
+  <section class="section-info">
+    <h2>Contacto</h2>
+    <p>Teléfono, email, horarios de atención.</p>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <p>Información de nuestro emprendimiento</p>
+  </footer>
 <?php endif; ?>
-
+</body>
+</html>
