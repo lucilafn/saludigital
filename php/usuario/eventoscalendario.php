@@ -28,7 +28,7 @@ while ($row = mysqli_fetch_assoc($resultado)) {
 // Construimos el array que FullCalendar necesita
     $events[] = [
         "id" => $id,
-        "title" => "$row[hora] - $doctor", // título breve
+        "title" => "$doctor", // título breve
         "start" => $fechaHora,
         "extendedProps" => [
             "doctor" => $doctor,
