@@ -9,6 +9,7 @@
     }
 
     echo"<h2>Historial de turnos: </h2>";
+    echo"<h3>Aqui se encuentran los turnos que han expirado</h3>";
 
     $id_usuario = $_SESSION['idusuario'];
     

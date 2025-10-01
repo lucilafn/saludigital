@@ -10,7 +10,7 @@
 
   echo "<a href='../usuario/inicio.php'><-- Volver</a>
         <a href='cerrarsesion.php'>Cerrar Sesion</a>
-        <a href='../historialturnos.php'>Ver historial de turnos</a>";
+        <a href='/saludigital/php/turnos/historialturnos.php'>Ver historial de turnos</a>";
 
 
   $id = $_SESSION['idusuario'];
