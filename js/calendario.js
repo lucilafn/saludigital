@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     locale: 'es', // idioma español
 
     // Cargamos los eventos desde nuestro PHP
-    events: 'php/eventoscalendario.php',
+    events: '/saludigital/php/usuario/eventoscalendario.php',
 
     // Cuando hago clic en un evento, muestro un popup con más detalles
     eventClick: function(info) {
