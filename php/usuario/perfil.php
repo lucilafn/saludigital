@@ -83,6 +83,6 @@
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
 
   <!-- Nuestro script para configurar el calendario -->
-  <script src="saludigital/js/calendario.js"></script>
+  <script src="/saludigital/js/calendario.js"></script>
 </body>
 </html>
