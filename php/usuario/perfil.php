@@ -69,25 +69,20 @@
 
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/perfil.css">
-    <title>Mi Perfil</title>
-  </head>
-  <body>
-    <header>
-      <div class="header-content">
-        <div class="profile-and-nav">
-          <div class="profile">
-            <img src="img/perfil.png" alt="Perfil">
-            <div class="profile-name">
-            </div>
-            <nav>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </header>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <title>Calendario Turnos</title>
+  <!-- Estilos de FullCalendar (desde CDN, solo anda si tenes internet) -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
+</head>
+<body>
+  <h2>Reservados</h2>
+  <div id="calendar"></div>
+
+  <!-- Librería FullCalendar (desde CDN, solo anda si tenes internet) -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+
+  <!-- Nuestro script para configurar el calendario -->
+  <script src="js/calendario.js"></script>
+</body>
 </html>
