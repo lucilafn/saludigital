@@ -1,0 +1,146 @@
+/* ===== Estilo general ===== */
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9fafa;
+  color: #333;
+}
+
+/* ===== Enlace volver ===== */
+a {
+  text-decoration: none;
+  color: #008080;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 15px;
+  transition: 0.3s;
+}
+a:hover {
+  color: #005f5f;
+}
+
+/* ===== Títulos ===== */
+h1, h2 {
+  text-align: center;
+  color: #004d4d;
+  margin-bottom: 20px;
+}
+
+/* ===== Formulario ===== */
+form {
+  max-width: 600px;
+  margin: 0 auto 30px auto;
+  background: #ffffff;
+  padding: 20px;
+  border: 1px solid #cce2e0;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+form label {
+  font-weight: bold;
+  color: #006d6d;
+  display: block;
+  margin-bottom: 6px;
+}
+
+form select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cce2e0;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 15px;
+  background: #f0fafa;
+  transition: 0.3s;
+}
+form select:focus {
+  border-color: #00a6a6;
+  outline: none;
+  background: #ffffff;
+}
+
+/* ===== Tabla de turnos ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+table th {
+  background: #00a6a6;
+  color: #fff;
+  padding: 12px;
+  text-align: center;
+  font-size: 15px;
+}
+
+table td {
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: center;
+  font-size: 14px;
+}
+
+table tr:hover {
+  background: #f0fafa;
+}
+
+/* ===== Botón reservar ===== */
+button {
+  background: #00a6a6;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+button:hover {
+  background: #007f7f;
+}
+
+/* ===== Mensajes ===== */
+p {
+  text-align: center;
+  font-size: 15px;
+  color: #444;
+  margin-top: 20px;
+}
+
+p[style*="color:green"] {
+  background: #e6f9f0;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #b3e6cc;
+}
+
+p[style*="color:red"] {
+  background: #ffe6e6;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ffb3b3;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 768px) {
+  form {
+    padding: 15px;
+  }
+
+  table th, table td {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  button {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+}

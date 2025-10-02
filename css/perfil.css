@@ -1,0 +1,133 @@
+/* ===== Estilo General ===== */
+body {
+  margin: 0;
+  padding: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9fafa;
+  color: #333;
+}
+
+/* ===== Barra de navegación ===== */
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+nav a {
+  background: #00a6a6;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+nav a:hover {
+  background: #007f7f;
+}
+
+/* ===== Layout en columnas ===== */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* perfil 1/3, calendario 2/3 */
+  gap: 20px;
+  align-items: start;
+}
+
+/* ===== Tarjeta de usuario ===== */
+.user-info {
+  background: #ffffff;
+  padding: 25px;
+  border: 1px solid #cce2e0;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+.user-info h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #004d4d;
+  text-align: center;
+}
+
+.user-info p {
+  margin: 10px 0;
+  font-size: 15px;
+  color: #444;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 6px;
+}
+
+.user-info p:last-child {
+  border-bottom: none;
+}
+
+.user-info form {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.user-info input[type="submit"] {
+  background: #00a6a6;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+.user-info input[type="submit"]:hover {
+  background: #007f7f;
+}
+
+/* ===== Turnos pendientes ===== */
+h1 {
+  text-align: center;
+  color: #004d4d;
+  margin: 30px 0 20px 0;
+}
+
+.turnos-acciones {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.turnos-acciones form input[type="submit"] {
+  background: #00a6a6;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+.turnos-acciones form input[type="submit"]:hover {
+  background: #007f7f;
+}
+
+/* ===== Calendario ===== */
+#calendar {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #cce2e0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* ===== Responsivo (móvil: una sola columna) ===== */
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
