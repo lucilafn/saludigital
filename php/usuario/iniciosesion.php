@@ -1,5 +1,5 @@
 <?php
-    include_once('../conexion.php');
+    require_once('../conexion.php');
     session_start();
 
     if (isset($_SESSION['usuario']))
@@ -15,7 +15,7 @@
 
     else
     {
-        $email = $_POST['email'];
+        $email = mysqli_real_escape_string($conexion,$_POST['email']);
         $contrasenia = $_POST['contrasenia'];
         $contra_encriptada = md5($contrasenia); //ENCRIPTACION DE CONTRASEÑA DE FORMULARIO
         $sql="SELECT * FROM usuarios where email = '".$email."'"; //CONSULTAMOS SI EXISTE EL USUARIO
@@ -34,7 +34,7 @@
 
                 if ($_SESSION['administrador'] == 1)//verificar si es admin
                 {
-                    header("Location: ../administrador/administrador.php");
+                    header("Location: ../administrador/verturnos.php");
                     exit();
                 }
 

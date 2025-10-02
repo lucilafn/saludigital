@@ -1,9 +1,10 @@
 <?php
 include('../conexion.php');
-
+session_start();
 // Traer todos los turnos con información del doctor, servicio y horario
 $sql = "
     SELECT 
+        t.id_usuario,
         t.id_turno,
         p.nombre AS doctor_nombre,
         p.apellido AS doctor_apellido,
@@ -14,6 +15,7 @@ $sql = "
     INNER JOIN horarios h ON t.id_horario = h.id_horario
     INNER JOIN profesionales p ON h.id_profesional = p.id_profesional
     INNER JOIN servicios s ON p.id_servicio = s.id_servicio
+    WHERE t.id_usuario = '".$_SESSION['idusuario']."';
 ";
 
 $resultado = mysqli_query($conexion, $sql);

@@ -1,5 +1,5 @@
 <?php
-    include('../conexion.php');
+    require_once('../conexion.php');
     session_start();
     
     // Consulta SQL: seleccionamos los datos de las tablas servicios y profesionales

@@ -1,3 +1,14 @@
+<?php
+    require_once('../conexion.php');
+    session_start();
+
+    if (!isset($_SESSION['id_usuario']) || $_SESSION['rol'] != 'administrador')
+    {
+        header("Location: ../usuario/form_iniciosesion.php");
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,7 +25,6 @@
             <th>Horarios</th>
             <tr>
                 <?php
-                    include("../conexion.php");
                     $sql = "SELECT * FROM turnos INNER JOIN usuarios ON turnos.id_usuario = usuarios.id_usuario
                                                  INNER JOIN horarios ON turnos.id_horario = horarios.id_horario";
                     $resultado = mysqli_query($conexion,$sql);

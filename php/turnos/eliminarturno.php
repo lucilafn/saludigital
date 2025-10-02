@@ -8,11 +8,11 @@ if (!isset($_SESSION['idusuario'])) {
 }
 $id_usuario = ($_SESSION['idusuario']);
 
-if (!isset($_GET['id_turno'])) {
+if (!isset($_POST['id_turno'])) {
     header("Location: ../perfil.php");
     exit();
 }
-$id_turno = ($_GET['id_turno']);
+$id_turno = ($_POST['id_turno']);
 
 // Validar que el turno sea del usuario logueado
 $sql = "SELECT id_turno FROM turnos 
@@ -31,7 +31,7 @@ $sql_elim = "DELETE FROM turnos
 if (mysqli_query($conexion, $sql_elim)) {
     echo "<script>
             alert('El turno fue eliminado correctamente.');
-            window.location.href = '../perfil.php';
+            window.location.href = '../usuario/perfil.php';
           </script>";
 } else {
     echo "Error al eliminar turno: " . mysqli_error($conexion);

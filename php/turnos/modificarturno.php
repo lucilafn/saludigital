@@ -10,11 +10,11 @@ if (!isset($_SESSION['idusuario'])) {
 $id_usuario = ($_SESSION['idusuario']); 
 
 // Si no viene el id del turno por GET, lo mandamos de nuevo al perfil
-if (!isset($_GET['id_turno'])) {
-    header("Location: ../perfil.php");
+if (!isset($_POST['id_turno'])) {
+    header("Location: ../usuario/perfil.php");
     exit();
 }
-$id_turno = ($_GET['id_turno']); 
+$id_turno = ($_POST['id_turno']); 
 
 // Buscamos el turno en la BD para validar que pertenece al usuario logueado
 $sql = "SELECT t.id_turno, h.id_horario, p.id_profesional, s.id_servicio

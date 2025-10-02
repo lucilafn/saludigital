@@ -50,7 +50,7 @@ $sql_update = "UPDATE turnos
 if (mysqli_query($conexion, $sql_update)) {
     echo "<script>
             alert('El turno se modificó correctamente.');
-            window.location.href = '../perfil.php';
+            window.location.href = '../usuario/perfil.php';
           </script>";
 } else {
     echo "Error al modificar el turno: " . mysqli_error($conexion);
