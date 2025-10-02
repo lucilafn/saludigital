@@ -91,6 +91,7 @@ if (isset($_GET['error'])) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../css/pedirturno.css">
     <title>Turnos disponibles</title>
 </head>
 <body>

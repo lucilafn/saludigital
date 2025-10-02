@@ -64,7 +64,7 @@
     </nav>
   </header>
 
-  <!-- ===== SECCIÓN BIENVENIDA (usa tu PHP original) ===== -->
+  <!-- ===== SECCIÓN BIENVENIDA ===== -->
   <div class="seccion">
       <h1>Bienvenido</h1>
   </div>

@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../css/historialturnos.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>historial</title>
+</head>
+<body>
+
 <?php
   include('../conexion.php');
   session_start();
@@ -51,3 +61,5 @@
         echo "<p>No tienes turnos en tu historial.</p>";
     }
 ?>
+</body>
+</html>
