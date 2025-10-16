@@ -27,7 +27,10 @@ body {
   width: 20px;
   height: 20px;
 }
-
+nav{
+  position: relative;
+  right: 35%;
+}
 
 /* ===== Header / Menú ===== */
 header {
