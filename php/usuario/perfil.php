@@ -14,7 +14,7 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../../css/perfil.css">
-    <title>Calendario Turnos</title>
+    <title>Calendario Turnos</title>  
     <!-- Estilos de FullCalendar -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
     <style>
@@ -42,12 +42,9 @@
             echo "<p><strong>Teléfono:</strong> " . htmlspecialchars($arreglo['telefono']) . "</p>";
             echo "<p><strong>Correo electrónico:</strong> " . htmlspecialchars($arreglo['email']) . "</p>";
 
-            if ($arreglo['obra_social'])
-            {
-            }
-            
-            else
-            {
+            if ($arreglo['obra_social']){
+              echo "<p><strong>Obra social:</strong> " . htmlspecialchars($arreglo['obra_social']) . "</p>"; 
+            }else{
               echo "<p><strong>Obra social:</strong> No posee</p>";
             }
 

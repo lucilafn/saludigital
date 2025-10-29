@@ -3,18 +3,17 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="icon" type="image/x-icon" href="img/Logo-Médico-con-Estetoscopio.ico">
 <style>
+
+/* estilo menu movil */
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .mobile-container {
-  max-width: 480px;
-  margin: auto;
   background-color: #555;
-  height: 500px;
   color: white;
-  border-radius: 10px;
 }
 
 .topnav {
@@ -52,18 +51,27 @@ body {
   background-color: #04AA6D;
   color: white;
 }
+
+.topnav img {
+  height: 40px;
+  padding: 5px 10px;
+}
+
 </style>
 </head>
 <body>
 
+<!-- Simulate a smartphone / tablet -->
+<div class="mobile-container">
 
 <!-- Top Navigation Menu -->
 <div class="topnav">
-  <a href="#home" class="active">Logo</a>
+  <img src="img/logo.jpg" alt="Logo Saludigital">
   <div id="myLinks">
-    <a href="#news">News</a>
-    <a href="#contact">Contact</a>
-    <a href="#about">About</a>
+      <a href="index.html" class="active">Inicio</a>
+      <a href="php/nosotros/servicios.html">Servicios</a>
+      <a href="php/nosotros/nosotros.html">Nosotros</a>
+      <a href="php/nosotros/contacto.html">Contacto</a>
   </div>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
@@ -76,8 +84,10 @@ function myFunction() {
   var x = document.getElementById("myLinks");
   if (x.style.display === "block") {
     x.style.display = "none";
+    console.log(x.style.display);
   } else {
     x.style.display = "block";
+    console.log(x.style.display);
   }
 }
 </script>

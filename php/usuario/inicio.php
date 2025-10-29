@@ -62,6 +62,18 @@
           <?php endif; ?>
       </div>
     </nav>
+    <!-- Top Navigation Menu -->
+  <div class="topnav">
+    <div id="myLinks">
+      <a href="index.html" class="active">Inicio</a>
+      <a href="php/nosotros/servicios.html">Servicios</a>
+      <a href="php/nosotros/nosotros.html">Nosotros</a>
+      <a href="php/nosotros/contacto.html">Contacto</a>
+    </div>
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
+  </div>
   </header>
 
   <!-- ===== SECCIÓN BIENVENIDA ===== -->
