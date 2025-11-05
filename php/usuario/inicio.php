@@ -53,12 +53,12 @@
     <nav>
         <div class="acciones">
           <?php if (!isset($_SESSION['usuario'])): ?>
-              <a href="form_iniciosesion.php"><img src="../../img/login.png"> Iniciar sesión</a>
-              <a href="form_registro.php"><img src="../../img/register.png"> Registrarse</a>
+              <a href="form_iniciosesion.php"> Iniciar sesión</a>
+              <a href="form_registro.php"> Registrarse</a>
           <?php else: ?>
-              <a href="perfil.php"><img src="../../img/profile.png"> Mi Perfil</a>
-              <a href="../turnos/pedirturno.php"><img src="../../img/calendar.png"> Turnos</a>
-              <a href="cerrarsesion.php"><img src="../../img/logout.png"> Cerrar sesión</a>
+              <a href="perfil.php"> Mi Perfil</a>
+              <a href="../turnos/pedirturno.php"> Turnos</a>
+              <a href="cerrarsesion.php">Cerrar sesión</a>
           <?php endif; ?>
       </div>
     </nav>
@@ -68,7 +68,6 @@
       <a href="index.html" class="active">Inicio</a>
       <a href="php/nosotros/servicios.html">Servicios</a>
       <a href="php/nosotros/nosotros.html">Nosotros</a>
-      <a href="php/nosotros/contacto.html">Contacto</a>
     </div>
       <a href="javascript:void(0);" class="icon" onclick="myFunction()">
         <i class="fa fa-bars"></i>
