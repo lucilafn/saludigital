@@ -73,6 +73,5 @@
     <footer>
       <p>Información de nuestro emprendimiento</p>
     </footer>
-    <?php endif; ?>
   </body>
 </html>
