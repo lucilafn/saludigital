@@ -1,90 +1,107 @@
 <?php
-require_once('../conexion.php');
-session_start();
+    // Incluye la conexión a la base de datos una sola vez e inicia la sesión
+    require_once('../conexion.php');
+    session_start();
 
-// ------------------- VERIFICACIÓN DE SESIÓN -------------------
-if (!isset($_SESSION['idusuario'])) {
-    header("Location: ../usuario/form_iniciosesion.php");
-    exit();
-}
-$id_usuario = intval($_SESSION['idusuario']);
-
-// ------------------- TRAER SERVICIOS Y PROFESIONALES -------------------
-$sql = "SELECT s.id_servicio, s.nombre AS servicio, 
-               p.id_profesional, p.nombre AS nombre_prof, p.apellido AS apellido_prof
-        FROM servicios s
-        LEFT JOIN profesionales p ON s.id_servicio = p.id_servicio
-        ORDER BY s.nombre, p.nombre, p.apellido";
-$resultado = mysqli_query($conexion, $sql);
-if (!$resultado) die("Error en la consulta: " . mysqli_error($conexion));
-
-$datos = [];
-while ($fila = mysqli_fetch_assoc($resultado)) {
-    $idServicio = $fila['id_servicio'];
-    if (!isset($datos[$idServicio])) {
-        $datos[$idServicio] = [
-            'servicio' => $fila['servicio'],
-            'profesionales' => []
-        ];
+    // Verifica si el usuario ha iniciado sesión; si no, lo redirige al formulario de inicio de sesión
+    if (!isset($_SESSION['idusuario']))
+    {
+        header("Location: ../usuario/form_iniciosesion.php");
+        exit();
     }
-    if ($fila['id_profesional']) {
-        $datos[$idServicio]['profesionales'][] = [
-            'id' => $fila['id_profesional'],
-            'nombre' => $fila['nombre_prof'] . ' ' . $fila['apellido_prof']
-        ];
-    }
-}
 
-// ------------------- FILTROS DESDE GET -------------------
-$filtro_servicio = isset($_GET['servicio']) ? intval($_GET['servicio']) : 0;
-$filtro_profesional = isset($_GET['profesional']) ? intval($_GET['profesional']) : 0;
+    // ID del usuario logueado
+    $id_usuario = intval($_SESSION['idusuario']);
 
-// ------------------- RESET AUTOMÁTICO DE PROFESIONAL INVÁLIDO -------------------
-if ($filtro_servicio > 0 && $filtro_profesional > 0) {
-    $prof_valido = false;
-    if (isset($datos[$filtro_servicio])) {
-        foreach ($datos[$filtro_servicio]['profesionales'] as $prof) {
-            if ($prof['id'] == $filtro_profesional) {
-                $prof_valido = true;
-                break;
-            }
+    // consulta: Obtener todos los servicios y sus profesionales
+    $sql =  "SELECT s.id_servicio,
+                    s.nombre AS servicio, 
+                    p.id_profesional,
+                    p.nombre AS nombre_prof,
+                    p.apellido AS apellido_prof
+            FROM servicios s /* desde la tabla `servicios` */
+            LEFT JOIN profesionales p ON s.id_servicio = p.id_servicio /* se junta con `profesionales` mediante 'id_servicio' */
+            ORDER BY s.nombre, p.nombre, p.apellido"; /* ordena por nombre de servicio y nombre y apellido del profesional de manera ascendente */
+
+    $resultado = mysqli_query($conexion, $sql);
+
+    // si hay un error en la consulta, termina el script
+    if (!$resultado) die("Error en la consulta: " . mysqli_error($conexion));
+
+    $datos = []; // array para almacenar servicios y profesionales
+    
+    // mientras haya filas en el resultado
+    while ($fila = mysqli_fetch_assoc($resultado))
+    {
+        $idServicio = $fila['id_servicio']; // toma el id de cada servicio almacenado en la fila 
+        
+        // Si el servicio no está en el array, lo agrega
+        if (!isset($datos[$idServicio]))
+        {
+            $datos[$idServicio] = [
+                'servicio' => $fila['servicio'],
+                'profesionales' => []
+            ];
+        }
+
+        if ($fila['id_profesional']) {
+            $datos[$idServicio]['profesionales'][] = [
+                'id' => $fila['id_profesional'],
+                'nombre' => $fila['nombre_prof'] . ' ' . $fila['apellido_prof']
+            ];
         }
     }
-    if (!$prof_valido) $filtro_profesional = 0;
-}
 
-// ------------------- CONSULTA PRINCIPAL: HORARIOS DISPONIBLES -------------------
-$mostrar_turnos = false;
-if ($filtro_servicio > 0) {
-    $mostrar_turnos = true;
+    // ------------------- FILTROS DESDE GET -------------------
+    $filtro_servicio = isset($_GET['servicio']) ? intval($_GET['servicio']) : 0;
+    $filtro_profesional = isset($_GET['profesional']) ? intval($_GET['profesional']) : 0;
 
-    $sql = "
-        SELECT h.id_horario, h.dia, h.hora,
-               p.id_profesional, p.nombre AS nombre_prof, p.apellido AS apellido_prof,
-               s.id_servicio, s.nombre AS nombre_servicio
-        FROM horarios h
-        INNER JOIN profesionales p ON h.id_profesional = p.id_profesional
-        INNER JOIN servicios s ON p.id_servicio = s.id_servicio
-        LEFT JOIN turnos t ON h.id_horario = t.id_horario
-        WHERE t.id_turno IS NULL
-          AND (h.dia > CURDATE() OR (h.dia = CURDATE() AND h.hora > CURTIME()))
-          AND s.id_servicio = $filtro_servicio
-    ";
+    // ------------------- RESET AUTOMÁTICO DE PROFESIONAL INVÁLIDO -------------------
+    if ($filtro_servicio > 0 && $filtro_profesional > 0) {
+        $prof_valido = false;
+        if (isset($datos[$filtro_servicio])) {
+            foreach ($datos[$filtro_servicio]['profesionales'] as $prof) {
+                if ($prof['id'] == $filtro_profesional) {
+                    $prof_valido = true;
+                    break;
+                }
+            }
+        }
+        if (!$prof_valido) $filtro_profesional = 0;
+    }
 
-    if ($filtro_profesional > 0) $sql .= " AND p.id_profesional = $filtro_profesional";
+    // ------------------- CONSULTA PRINCIPAL: HORARIOS DISPONIBLES -------------------
+    $mostrar_turnos = false;
+    if ($filtro_servicio > 0) {
+        $mostrar_turnos = true;
 
-    $sql .= " ORDER BY h.dia, h.hora";
+        $sql = "
+            SELECT h.id_horario, h.dia, h.hora,
+                   p.id_profesional, p.nombre AS nombre_prof, p.apellido AS apellido_prof,
+                   s.id_servicio, s.nombre AS nombre_servicio
+            FROM horarios h
+            INNER JOIN profesionales p ON h.id_profesional = p.id_profesional
+            INNER JOIN servicios s ON p.id_servicio = s.id_servicio
+            LEFT JOIN turnos t ON h.id_horario = t.id_horario
+            WHERE t.id_turno IS NULL
+              AND (h.dia > CURDATE() OR (h.dia = CURDATE() AND h.hora > CURTIME()))
+              AND s.id_servicio = $filtro_servicio
+        ";
 
-    $resultado_turnos = mysqli_query($conexion, $sql);
-    if (!$resultado_turnos) die("Error en la consulta: " . mysqli_error($conexion));
-}
+        if ($filtro_profesional > 0) $sql .= " AND p.id_profesional = $filtro_profesional";
 
-// ------------------- MENSAJES DE RESERVA -------------------
-if (isset($_GET['success'])) echo "<p style='color:green;'>Turno reservado correctamente.</p>";
-if (isset($_GET['error'])) {
-    if ($_GET['error'] === 'ocupado') echo "<p style='color:red;'>El turno ya fue reservado por otro usuario.</p>";
-    else echo "<p style='color:red;'>Ocurrió un error al reservar el turno.</p>";
-}
+        $sql .= " ORDER BY h.dia, h.hora";
+
+        $resultado_turnos = mysqli_query($conexion, $sql);
+        if (!$resultado_turnos) die("Error en la consulta: " . mysqli_error($conexion));
+    }
+
+    // ------------------- MENSAJES DE RESERVA -------------------
+    if (isset($_GET['success'])) echo "<p style='color:green;'>Turno reservado correctamente.</p>";
+    if (isset($_GET['error'])) {
+        if ($_GET['error'] === 'ocupado') echo "<p style='color:red;'>El turno ya fue reservado por otro usuario.</p>";
+        else echo "<p style='color:red;'>Ocurrió un error al reservar el turno.</p>";
+    }
 ?>
 
 <!DOCTYPE html>
@@ -95,7 +112,7 @@ if (isset($_GET['error'])) {
     <title>Turnos disponibles</title>
 </head>
 <body>
-<a href='../usuario/inicio.php'><-- Volver</a><br>
+<a href='../usuario/inicio.php'>Inicio</a><br>
 <h1>Buscar turnos</h1>
 
 <!-- ------------------- FORMULARIO DE SELECCIÓN ------------------- -->

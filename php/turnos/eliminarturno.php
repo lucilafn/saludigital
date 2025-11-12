@@ -2,38 +2,21 @@
 include('../conexion.php');
 session_start();
 
-if (!isset($_SESSION['idusuario'])) {
-    header("Location: ../usuario/form_iniciosesion.php");
-    exit();
-}
-$id_usuario = ($_SESSION['idusuario']);
+header('Content-Type: application/json');
 
-if (!isset($_POST['id_turno'])) {
-    header("Location: ../perfil.php");
-    exit();
-}
-$id_turno = ($_POST['id_turno']);
-
-// Validar que el turno sea del usuario logueado
-$sql = "SELECT id_turno FROM turnos 
-        WHERE id_turno = $id_turno AND id_usuario = $id_usuario";
-
-$res = mysqli_query($conexion, $sql);
-
-if (mysqli_num_rows($res) == 0) {
-    die("Error: turno no encontrado o no pertenece al usuario.");
-}
-
-//eliminano
-$sql_elim = "DELETE FROM turnos 
-            WHERE id_turno = $id_turno AND id_usuario = $id_usuario";
-
-if (mysqli_query($conexion, $sql_elim)) {
-    echo "<script>
-            alert('El turno fue eliminado correctamente.');
-            window.location.href = '../usuario/perfil.php';
-          </script>";
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
+    $id_turno = $_POST['id'];
+    
+    $sql = "DELETE FROM turnos WHERE id_turno = ? AND id_usuario = ?";
+    $stmt = mysqli_prepare($conexion, $sql);
+    mysqli_stmt_bind_param($stmt, "ii", $id_turno, $_SESSION['idusuario']);
+    
+    if (mysqli_stmt_execute($stmt)) {
+        echo json_encode(["success" => true, "message" => "Turno eliminado correctamente"]);
+    } else {
+        echo json_encode(["success" => false, "message" => "Error al eliminar el turno"]);
+    }
 } else {
-    echo "Error al eliminar turno: " . mysqli_error($conexion);
+    echo json_encode(["success" => false, "message" => "Solicitud inválida"]);
 }
 ?>

@@ -1,7 +1,11 @@
 <?php
     require_once('../conexion.php');
     session_start();
-
+    
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header("HTTP/1.1 404 Not Found");
+    exit(); }
+    
     if (!isset($_SESSION['usuario']))
     {
         header("Location: form_iniciosesion.php");

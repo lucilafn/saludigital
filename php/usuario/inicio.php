@@ -26,9 +26,14 @@
       <?php if (!isset($_SESSION['usuario'])): ?>
         <a href="form_inicioSesion.php">Iniciar sesión</a>
         <a href="form_registro.php">Registrarse</a>
-      <?php else: ?>
+        <a href="../profesionales/mostrarservicios.php">Prestaciones</a>
+      <?php elseif (($_SESSION['administrador'] != 1)): ?>
         <a href="perfil.php">Mi Perfil</a>
-        <a href="../turnos/pedirturno.php">Turnos</a>
+        <a href="../turnos/pedirturno.php">Pedir turno</a>
+        <a href="../profesionales/mostrarservicios.php">Prestaciones</a>
+        <a href="cerrarsesion.php">Cerrar sesión</a>
+      <?php else: ?>
+        <a href="../administrador/administrador.php">Turnos Diarios</a>
         <a href="cerrarsesion.php">Cerrar sesión</a>
       <?php endif; ?>
     </div>

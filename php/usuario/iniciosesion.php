@@ -32,9 +32,14 @@
                 $_SESSION['administrador']=$datos['rol'];
                 $_SESSION['email'] = $datos['email'];
 
-                if ($_SESSION['administrador'] == 1)//verificar si es admin
+                if (!isset($_SESSION['idusuario']))
                 {
-                    header("Location: ../administrador/verturnos.php");
+                    echo 'Error al iniciar sesion, por favor intente de nuevo';
+                }
+                
+                elseif ($_SESSION['administrador'] == 1)
+                {
+                    header("Location: ../administrador/administrador.php");
                     exit();
                 }
 

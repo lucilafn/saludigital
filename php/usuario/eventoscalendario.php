@@ -1,6 +1,7 @@
 <?php
 include('../conexion.php');
 session_start();
+
 // Traer todos los turnos con información del doctor, servicio y horario
 $sql = "
     SELECT 
@@ -26,11 +27,13 @@ while ($row = mysqli_fetch_assoc($resultado)) {
     $id = $row['id_turno'];
     $doctor = $row['doctor_nombre'] . " " . $row['doctor_apellido'];
     $servicio = $row['servicio'];
-    $fechaHora = $row['dia'] . " " . $row['hora'];
-// Construimos el array que FullCalendar necesita
+    // Combina fecha y hora en formato ISO 8601
+    $fechaHora = $row['dia'] . "T" . $row['hora'];
+    
+    // Construimos el array que FullCalendar necesita
     $events[] = [
-        "id" => $id,
-        "title" => "$doctor", // título breve
+        "id" => (string)$id,
+        "title" => $doctor,
         "start" => $fechaHora,
         "extendedProps" => [
             "doctor" => $doctor,
@@ -39,6 +42,7 @@ while ($row = mysqli_fetch_assoc($resultado)) {
         ]
     ];
 }
+
 // Indicamos que la respuesta será JSON
 header('Content-Type: application/json');
 echo json_encode($events);

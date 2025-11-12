@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <body>
+    <a href='perfil.php'>Volver</a>
 <?php
     require_once('../conexion.php');
     session_start();

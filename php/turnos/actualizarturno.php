@@ -14,11 +14,11 @@ if (!isset($_POST['id_turno']) || !isset($_POST['id_horario'])) {
     exit();
 }
 
-$id_turno = ($_POST['id_turno']);     // turno que se va a modificar
+$id_turno = ($_POST['id_turno']); // turno que se va a modificar
 $id_horario = ($_POST['id_horario']); // nuevo horario elegido
 
 //validar que el turno existe y es del usuario
-$sql = "SELECT t.id_turno
+$sql =  "SELECT t.id_turno
         FROM turnos t
         WHERE t.id_turno = $id_turno AND t.id_usuario = $id_usuario";
 
