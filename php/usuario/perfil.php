@@ -26,8 +26,10 @@
     </style>
   </head>
   <body>
-    <a href='inicio.php'>Inicio</a><br>
+    <div class = "botones">
+    <a href='inicio.php'>Inicio</a>
     <a href='../turnos/historialturnos.php'>Historial de Turnos</a><br>
+    </div>
     <div class="layout">
       <!-- Perfil -->
       <div class="user-info">

@@ -21,6 +21,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="../../css/mostrarservicios.css">
     <title>Document</title>
 </head>
 <body>
@@ -51,14 +52,12 @@
             echo "<h2>" . htmlspecialchars($nombre_servicio) . "</h2>";
             echo "<p><strong>Descripción:</strong> " . htmlspecialchars($datos['descripcion']) . "</p>";
             echo "<p><strong>Profesionales:</strong></p>";
-            echo "<ul>";
 
             // Mostrar cada profesional del servicio actual
             foreach ($datos['profesionales'] as $prof)
             {
                 echo "<li>" . htmlspecialchars($prof) . "</li>";
             }
-            echo "</ul>";
             echo "<hr>";
         }
     }
