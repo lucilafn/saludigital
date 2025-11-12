@@ -19,15 +19,16 @@ nav {
   gap: 12px;
   margin-bottom: 25px;
 }
-div.botones{
-  background: #00a6a6;
-  color: #fff;
-  padding: 10px 16px;
-  border-radius: 8px;
+a {
   text-decoration: none;
-  font-size: 14px;
+  color: #008080;
   font-weight: 500;
-  transition: background 0.3s;
+  display: inline-block;
+  margin-bottom: 15px;
+  transition: 0.3s;
+}
+a:hover {
+  color: #005f5f;
 }
 nav a {
   background: #00a6a6;
