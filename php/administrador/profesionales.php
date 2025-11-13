@@ -37,9 +37,9 @@ function actualizarDias() {
 </head>
 <body>
 
-<a href="administrador.php">Turnos</a>
-<a href="pacientes.php">Pacientes</a>
-<a href="horarios.php">Horarios</a>
+<a href="administrador.php">Turnos</a> |
+<a href="pacientes.php">Pacientes</a> |
+<a href="horarios.php">Horarios</a><br>
 
 <h1>Gestión de Profesionales</h1>
 
@@ -65,7 +65,7 @@ function actualizarDias() {
 
     <label>Días trabajados:</label><br>
     <?php
-    $dias = ['lunes','martes','miércoles','jueves','viernes','sábado','domingo'];
+    $dias = ['lunes','martes','miercoles','jueves','viernes','sabado','domingo'];
     foreach ($dias as $dia) {
         echo "<label><input type='checkbox' name='dias_trabajados[]' value='$dia' onchange='actualizarDias()'> $dia </label> ";
     }

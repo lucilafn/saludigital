@@ -72,7 +72,7 @@ function actualizarDias() {
 
     <label>Días trabajados:</label><br>
     <?php
-    $dias = ['lunes','martes','miércoles','jueves','viernes','sábado','domingo'];
+    $dias = ['lunes','martes','miercoles','jueves','viernes','sabado','domingo'];
     foreach ($dias as $dia) {
         $checked = in_array($dia, $dias_guardados) ? "checked" : "";
         echo "<label><input type='checkbox' name='dias_trabajados[]' value='$dia' $checked onchange='actualizarDias()'> $dia </label> ";

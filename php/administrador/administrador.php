@@ -2,27 +2,11 @@
 require_once('../conexion.php');
 session_start();
 
-// ------------------- VERIFICAR SI ES ADMIN -------------------
+// ------------------- CONTROL DE ACCESO -------------------
 if (!isset($_SESSION['idusuario']) || $_SESSION['administrador'] != 1) {
     header("HTTP/1.1 404 Not Found");
     exit();
 }
-
-// ------------------- FECHA DEL DÍA -------------------
-$hoy = date('Y-m-d');
-
-// ------------------- TURNOS DEL DÍA -------------------
-$sql_turnos = "
-    SELECT t.id_turno, u.nombre AS nombre_usuario, u.apellido AS apellido_usuario, u.dni,
-           s.nombre AS servicio, p.nombre AS nombre_profesional, p.apellido AS apellido_profesional, h.hora
-    FROM turnos t
-    INNER JOIN usuarios u ON t.id_usuario = u.id_usuario
-    INNER JOIN horarios h ON t.id_horario = h.id_horario
-    INNER JOIN profesionales p ON h.id_profesional = p.id_profesional
-    INNER JOIN servicios s ON p.id_servicio = s.id_servicio
-    WHERE h.dia = '$hoy'
-    ORDER BY h.hora ASC";
-$res_turnos = mysqli_query($conexion, $sql_turnos);
 
 // ------------------- BUSCAR PACIENTE -------------------
 $filtro_paciente = "";
@@ -47,6 +31,7 @@ $sql = "SELECT s.id_servicio, s.nombre AS servicio,
         LEFT JOIN profesionales p ON s.id_servicio = p.id_servicio
         ORDER BY s.nombre, p.nombre, p.apellido";
 $resultado = mysqli_query($conexion, $sql);
+
 $datos = [];
 while ($fila = mysqli_fetch_assoc($resultado)) {
     $idS = $fila['id_servicio'];
@@ -61,12 +46,25 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
     }
 }
 
-// ------------------- FILTROS DESDE GET -------------------
 $filtro_servicio = isset($_GET['servicio']) ? intval($_GET['servicio']) : 0;
 $filtro_profesional = isset($_GET['profesional']) ? intval($_GET['profesional']) : 0;
 $filtro_usuario = isset($_GET['paciente']) ? intval($_GET['paciente']) : 0;
 
-// ------------------- CONSULTA PRINCIPAL: HORARIOS DISPONIBLES -------------------
+// ------------------- RESET AUTOMÁTICO PROFESIONAL INVÁLIDO -------------------
+if ($filtro_servicio > 0 && $filtro_profesional > 0) {
+    $prof_valido = false;
+    if (isset($datos[$filtro_servicio])) {
+        foreach ($datos[$filtro_servicio]['profesionales'] as $prof) {
+            if ($prof['id'] == $filtro_profesional) {
+                $prof_valido = true;
+                break;
+            }
+        }
+    }
+    if (!$prof_valido) $filtro_profesional = 0;
+}
+
+// ------------------- CONSULTA DE TURNOS DISPONIBLES -------------------
 $mostrar_turnos = false;
 if ($filtro_servicio > 0) {
     $mostrar_turnos = true;
@@ -85,6 +83,29 @@ if ($filtro_servicio > 0) {
     $sql_turnos_disp .= " ORDER BY h.dia, h.hora";
     $resultado_turnos = mysqli_query($conexion, $sql_turnos_disp);
 }
+
+// ------------------- ELIMINAR TURNO -------------------
+if (isset($_GET['eliminar']) && is_numeric($_GET['eliminar'])) {
+    $id_eliminar = intval($_GET['eliminar']);
+    mysqli_query($conexion, "DELETE FROM turnos WHERE id_turno = $id_eliminar");
+    header("Location: administrador.php");
+    exit();
+}
+
+// ------------------- OBTENER TURNOS VIGENTES -------------------
+$sql_turnos = "
+SELECT t.id_turno, t.id_usuario, t.id_horario,
+       u.nombre AS nombre_pac, u.apellido AS apellido_pac,
+       p.nombre AS nombre_prof, p.apellido AS apellido_prof,
+       s.nombre AS servicio, h.dia, h.hora
+FROM turnos t
+INNER JOIN usuarios u ON t.id_usuario = u.id_usuario
+INNER JOIN horarios h ON t.id_horario = h.id_horario
+INNER JOIN profesionales p ON h.id_profesional = p.id_profesional
+INNER JOIN servicios s ON p.id_servicio = s.id_servicio
+WHERE h.dia > CURDATE() OR (h.dia = CURDATE() AND h.hora > CURTIME())
+ORDER BY h.dia, h.hora";
+$res_turnos = mysqli_query($conexion, $sql_turnos);
 ?>
 
 <!DOCTYPE html>
@@ -95,13 +116,14 @@ if ($filtro_servicio > 0) {
 <title>Panel Administrador</title>
 </head>
 <body>
-<a href='pacientes.php'>Pacientes</a>
-<a href='profesionales.php'>Profesionales</a>
-<a href='horarios.php'>Horarios</a>
+<a href='pacientes.php'>Pacientes</a> | 
+<a href='profesionales.php'>Profesionales</a> | 
+<a href='horarios.php'>Horarios</a><br>
 
-<h2>Agendar turno para un paciente</h2>
+<h1>Panel de administración</h1>
 
-<!-- BUSCADOR DE PACIENTE -->
+<!-- SECCIÓN AGENDAR TURNO -->
+<h2>Agendar turno a paciente</h2>
 <form method="get">
     <label>Buscar paciente (apellido o DNI):</label><br>
     <input type="text" name="buscar" value="<?= htmlspecialchars($filtro_paciente) ?>">
@@ -130,11 +152,10 @@ if ($filtro_servicio > 0) {
         ?>
     </h3>
 
-    <!-- FORMULARIO IGUAL A PEDIRTURNO -->
     <form method="get">
         <input type="hidden" name="paciente" value="<?= $filtro_usuario ?>">
 
-        <label>Servicio (obligatorio):</label><br>
+        <label>Servicio:</label><br>
         <select name="servicio" required onchange="this.form.submit()">
             <option value="">-- Seleccione un servicio --</option>
             <?php foreach ($datos as $id => $info): ?>
@@ -145,7 +166,7 @@ if ($filtro_servicio > 0) {
         </select><br><br>
 
         <?php if ($filtro_servicio > 0 && !empty($datos[$filtro_servicio]['profesionales'])): ?>
-            <label>Profesional (opcional):</label><br>
+            <label>Profesional:</label><br>
             <select name="profesional" onchange="this.form.submit()">
                 <option value="0">-- Cualquiera --</option>
                 <?php foreach ($datos[$filtro_servicio]['profesionales'] as $prof): ?>
@@ -157,14 +178,11 @@ if ($filtro_servicio > 0) {
         <?php endif; ?>
     </form>
 
-    <!-- LISTA DE TURNOS DISPONIBLES -->
     <?php if ($mostrar_turnos): ?>
         <h3>Turnos disponibles</h3>
         <?php if (mysqli_num_rows($resultado_turnos) > 0): ?>
             <table border="1" style="border-collapse:collapse;text-align:center;">
-                <tr>
-                    <th>Día</th><th>Hora</th><th>Servicio</th><th>Profesional</th><th>Acción</th>
-                </tr>
+                <tr><th>Día</th><th>Hora</th><th>Servicio</th><th>Profesional</th><th>Acción</th></tr>
                 <?php while ($fila = mysqli_fetch_assoc($resultado_turnos)): ?>
                     <tr>
                         <td><?= htmlspecialchars($fila['dia']) ?></td>
@@ -184,35 +202,32 @@ if ($filtro_servicio > 0) {
         <?php else: ?>
             <p>No hay turnos disponibles para este servicio/profesional.</p>
         <?php endif; ?>
-    <?php else: ?>
-        <p>Seleccione un servicio para ver los turnos disponibles.</p>
     <?php endif; ?>
 <?php endif; ?>
 
 <hr>
 
-<h1>Turnos del día <?= date('d/m/Y'); ?></h1>
-
-<table border="1" style="border-collapse:collapse;text-align:center;">
-<tr>
-    <th>ID Turno</th><th>Paciente</th><th>DNI</th><th>Servicio</th><th>Profesional</th><th>Hora</th>
-</tr>
-<?php
-if (mysqli_num_rows($res_turnos) > 0) {
-    while ($fila = mysqli_fetch_assoc($res_turnos)) {
-        echo "<tr>
-                <td>{$fila['id_turno']}</td>
-                <td>{$fila['nombre_usuario']} {$fila['apellido_usuario']}</td>
-                <td>{$fila['dni']}</td>
-                <td>{$fila['servicio']}</td>
-                <td>{$fila['nombre_profesional']} {$fila['apellido_profesional']}</td>
-                <td>{$fila['hora']}</td>
-              </tr>";
-    }
-} else {
-    echo "<tr><td colspan='6'>No hay turnos registrados para hoy.</td></tr>";
-}
-?>
-</table>
+<!-- SECCIÓN DE TURNOS VIGENTES -->
+<h2>Turnos vigentes</h2>
+<?php if (mysqli_num_rows($res_turnos) > 0): ?>
+    <table border="1" style="border-collapse:collapse;text-align:center;">
+        <tr><th>Paciente</th><th>Profesional</th><th>Servicio</th><th>Día</th><th>Hora</th><th>Acciones</th></tr>
+        <?php while ($t = mysqli_fetch_assoc($res_turnos)): ?>
+            <tr>
+                <td><?= htmlspecialchars($t['apellido_pac'].' '.$t['nombre_pac']) ?></td>
+                <td><?= htmlspecialchars($t['apellido_prof'].' '.$t['nombre_prof']) ?></td>
+                <td><?= htmlspecialchars($t['servicio']) ?></td>
+                <td><?= htmlspecialchars($t['dia']) ?></td>
+                <td><?= htmlspecialchars($t['hora']) ?></td>
+                <td>
+                    <a href="modificar_admin.php?id=<?= $t['id_turno'] ?>">Modificar</a> |
+                    <a href="administrador.php?eliminar=<?= $t['id_turno'] ?>" onclick="return confirm('¿Eliminar este turno?')">Eliminar</a>
+                </td>
+            </tr>
+        <?php endwhile; ?>
+    </table>
+<?php else: ?>
+    <p>No hay turnos vigentes.</p>
+<?php endif; ?>
 </body>
 </html>
